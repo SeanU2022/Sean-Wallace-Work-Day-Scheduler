@@ -89,6 +89,6 @@ textarea {
 /* Small smartphones */
 @media screen and (max-width: 576px) {
   html {
-    font-size: 62.5%;
+    font-size: 15%;
   }
 }
