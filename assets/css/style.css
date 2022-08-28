@@ -38,7 +38,8 @@ textarea {
 
 .hour {
   background-color: #ffffff;
-  color: #000000;
+  /* color: #000000; */
+  color: pink;
   border-top: 1px dashed #000000;
 }
 

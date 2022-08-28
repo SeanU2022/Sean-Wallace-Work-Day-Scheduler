@@ -44,4 +44,4 @@ The following images demonstrate functionality:
 ![A user clicks on slots on the color-coded calendar and edits the events.](./Assets/05-third-party-apis-homework-demo.gif)
 
 ## Deployed Application
-The Work Day Scheduler can be found here: 
+The Work Day Scheduler can be found here: https://seanu2022.github.io/Sean-Wallace-Work-Day-Scheduler/

@@ -1,54 +1,256 @@
 var todaysDate = moment().format("dddd, MMMM Do");
 $("#currentDay").text(todaysDate);
 
-// $(document).ready(function() {
-//     $('#example').DataTable();
-// } );
+var time = moment().format("hh:mm:ss");
+var timeHourNow = moment().format("hh");
+$("#4a").text(time);
+$("#4b").text(timeHourNow);
 
-var $table = $('<table>');
+var a = 5;
+var b = 10;
 
-// $table.append( '<tr><th>hello</th></tr>' );
-$table.append( '<tr>');
-// $table.append( '<th>hello</th>' );
-// $table.append( '<th>there</th>' );
-// $table.append( '<th>I am here</th>' );
-
-// $table.append( '<tr>');
-// $table.append( '<td> data1 </td>' );
-// $table.append( '<td> data2 </td>' );
-// $table.append( '<td> data3 </td>' );
-
-
-for (let columnNumber = 0; columnNumber < 3; columnNumber++) {
-        $table.append( '<th>column' + columnNumber + '</th>' );    
-}
-
-for (let hourlySlot = 0; hourlySlot < 13; hourlySlot++) {
-    $table.append( '<tr>');
-    $table.append( '<td>' + (hourlySlot+8) + 'am/pm' + '</td>' );
-    $table.append( '<td>' + 'task to do' + '</td>' );
-    $table.append( '<td>' + 'ICON' + '</td>' );
-}
-
-
-// $table.append( '<th>' + 'this columntwo' + index + '</th>' );
-// $table.append( '<th>' + 'this columnthree' + index + '</th>' );
-
-
-
-
-// for (let index = 0; index < 4; index++) {
-//     // const element = array[index];
-
-//     $table.append( '<tr><th>' + 'this column' + index + '</th></tr>' );
-
+// if (a > b) {
+//     $("body").html("<p>A is larger than B</p>");
+// } else if (a == b) {
+//     $("body").html("<p>A is equal to B</p>");
+// } else {
+//     $("body").html("<p>B is larger than A</p>");
 // }
 
-//     for(var i=0; i<3; i++){
-//         $table.append( '<tr><td>' + 'result' +  i + '</td></tr>' );
+
+// $('div').each(function(index, value) {
+//     console.log(`div${index}: ${this.id}`);
+//   });
+
+// $('.hour').each(function(i, obj) {
+$('.hour').each(function(index, value) {
+    console.log(index);
+    console.log($(value).text());
+
+    $(this).siblings(".editable").eq(0).removeClass("past present future");
+
+    if (timeHourNow > parseInt($(value).text())) {
+        // $(this).css("background-color", "#ff6961");
+        // $(this).siblings(".bar").eq(0).text()
+        // $(this).siblings(".editable").eq(0).css("background-color", "#ff6961");
+        $(this).siblings(".editable").eq(0).addClass("past");
+    }
+    if (timeHourNow = parseInt($(value).text())) {
+        $(this).siblings(".editable").eq(0).addClass("present");
+    }
+
+    if (timeHourNow < parseInt($(value).text())) {
+        $(this).siblings(".editable").eq(0).addClass("future");
+    }
+
+});
+
+
+// if ($('td').hasClass('hour')) {
+//     // alert('hello');
+//     console.log( $( "td" )[ 0 ]);
+//     // var value = $( this ).val();
+//     // var value = $('td').hasClass('hour').val();
+//     var inputString = $('td')[0].val();
+//     var value = ($('td')[0]).text;
+//     alert(inputString);
+//     // alert(this.val());
+//     // $( "p" ).text( value );
+
+//     if (timeHourNow > value) {
+//         // $(this).css("background-color", "red");
+//         $(this).text = 'hello';
+//     } else {
+        
+//     }
+    
+// }
+
+
+var objDate = new Date();
+//     var hours = objDate.getHours();
+//     if(hours >= 9 && hours <= 17){
+//         $(".hour").addClass("present");
+//     }
+//     elseif(hours < 9){
+//         $(".hour").addClass("past");
+//     }
+//     else{
+//         $(".hour").addClass("future");
 //     }
 
-    
+
+// https://mindmup.github.io/editable-table
+// /*global $, window*/
+$.fn.editableTableWidget = function (options) {
+	'use strict';
+	return $(this).each(function () {
+		var buildDefaultOptions = function () {
+				var opts = $.extend({}, $.fn.editableTableWidget.defaultOptions);
+				opts.editor = opts.editor.clone();
+				return opts;
+			},
+			activeOptions = $.extend(buildDefaultOptions(), options),
+			ARROW_LEFT = 37, ARROW_UP = 38, ARROW_RIGHT = 39, ARROW_DOWN = 40, ENTER = 13, ESC = 27, TAB = 9,
+			element = $(this),
+			editor = activeOptions.editor.css('position', 'absolute').hide().appendTo(element.parent()),
+			active,
+			showEditor = function (select) {
+				active = element.find('td:focus');
+
+                // only one column class can be edited
+                // Sean Wallace 2022
+                if (!active.hasClass('editable')) {
+                    return;
+                }
+
+				if (active.length) {
+					editor.val(active.text())
+						.removeClass('error')
+						.show()
+						.offset(active.offset())
+						.css(active.css(activeOptions.cloneProperties))
+						.width(active.width())
+						.height(active.height())
+						.focus();
+					if (select) {
+						editor.select();
+					}
+				}
+			},
+			setActiveText = function () {
+				var text = editor.val(),
+					evt = $.Event('change'),
+					originalContent;
+				if (active.text() === text || editor.hasClass('error')) {
+					return true;
+				}
+				originalContent = active.html();
+				active.text(text).trigger(evt, text);
+				if (evt.result === false) {
+					active.html(originalContent);
+				}
+			},
+			movement = function (element, keycode) {
+				if (keycode === ARROW_RIGHT) {
+					return element.next('td');
+				} else if (keycode === ARROW_LEFT) {
+					return element.prev('td');
+				} else if (keycode === ARROW_UP) {
+					return element.parent().prev().children().eq(element.index());
+				} else if (keycode === ARROW_DOWN) {
+					return element.parent().next().children().eq(element.index());
+				}
+				return [];
+			};
+		editor.blur(function () {
+			setActiveText();
+			editor.hide();
+		}).keydown(function (e) {
+			if (e.which === ENTER) {
+				setActiveText();
+				editor.hide();
+				active.focus();
+				e.preventDefault();
+				e.stopPropagation();
+			} else if (e.which === ESC) {
+				editor.val(active.text());
+				e.preventDefault();
+				e.stopPropagation();
+				editor.hide();
+				active.focus();
+			} else if (e.which === TAB) {
+				active.focus();
+			} else if (this.selectionEnd - this.selectionStart === this.value.length) {
+				var possibleMove = movement(active, e.which);
+				if (possibleMove.length > 0) {
+					possibleMove.focus();
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			}
+		})
+		.on('input paste', function () {
+			var evt = $.Event('validate');
+			active.trigger(evt, editor.val());
+			if (evt.result === false) {
+				editor.addClass('error');
+			} else {
+				editor.removeClass('error');
+			}
+		});
+		element.on('click keypress dblclick', showEditor)
+		.css('cursor', 'pointer')
+		.keydown(function (e) {
+			var prevent = true,
+				possibleMove = movement($(e.target), e.which);
+			if (possibleMove.length > 0) {
+				possibleMove.focus();
+			} else if (e.which === ENTER) {
+				showEditor(false);
+			} else if (e.which === 17 || e.which === 91 || e.which === 93) {
+				showEditor(true);
+				prevent = false;
+			} else {
+				prevent = false;
+			}
+			if (prevent) {
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		});
+
+		element.find('td').prop('tabindex', 1);
+
+		$(window).on('resize', function () {
+			if (editor.is(':visible')) {
+				editor.offset(active.offset())
+				.width(active.width())
+				.height(active.height());
+			}
+		});
+	});
+
+};
+$.fn.editableTableWidget.defaultOptions = {
+	cloneProperties: ['padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right',
+					  'text-align', 'font', 'font-size', 'font-family', 'font-weight',
+					  'border', 'border-top', 'border-bottom', 'border-left', 'border-right'],
+	editor: $('<input>')
+};
+
+$('table td').on('change', function(evt, newValue) {
+    alert(newValue);
+	// do something with the new cell value 
+	console.log($('td').hasClass('col-1'));
+    if ($('td').hasClass('col-1')) { 
+        alert('cannot edit me!');
+		return false; // reject change
+	}
+});
+
+// $("#daily-schedule").SetEditable();
+$('#daily-schedule').editableTableWidget();
+
+$("#business").click(function(event){
+    jQuery.fx.off = true;
+    $("#businessmenu").toggle("");
+    $(this).css("background-color", "#000");
+    event.stopPropagation();
+});
 
 
-$('#here_table').append($table);
+// 
+
+// $('html').click(function() {
+
+
+//     $("#businessmenu").hide();
+//     $("#business").css("background-color", "#323232");
+
+
+//     $("#business").css({
+//         "background": "#000"
+//     });
+
+// });
