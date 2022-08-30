@@ -6,44 +6,66 @@ var timeHourNow = moment().format("hh");
 $("#4a").text(time);
 $("#4b").text(timeHourNow);
 
-var a = 5;
-var b = 10;
 
-// if (a > b) {
-//     $("body").html("<p>A is larger than B</p>");
-// } else if (a == b) {
-//     $("body").html("<p>A is equal to B</p>");
-// } else {
-//     $("body").html("<p>B is larger than A</p>");
+// using AM/PM
+var theHourNow = moment().format("hh");
+console.log(theHourNow);
+
+
+// this is outside of a function so that is exexutes on page load
+var hourColumnText;
+var hourAsInteger = 0;
+var hourColumnMiddayTrigger = false;
+var hourColumnArrayAs24Hr = [];
+
+// populate hourColumnArrayAs24Hr from the .hour column converting to 24HR format
+$('.hour').each(function(index, value) {
+
+	hourColumnText = $(value).text();
+	hourAsInteger = parseInt(hourColumnText.substring(0, 2));	// assumption: 1 PM not 1PM
+
+	// if we have passed 12pm add 12 to the number
+	if (hourColumnMiddayTrigger) {
+		hourAsInteger = hourAsInteger + 12;
+	}
+
+	// in scope="col": only set flag to true after we have passed 12
+	// assumption: there is only one occcurance of 12 in the scope="col"
+	if (hourAsInteger === 12) {
+		hourColumnMiddayTrigger = true;
+	}
+
+	// ARRAY TO TEST THE LOGIC:
+	// hourColumnArrayAs24Hr.push(hourAsInteger);
+
+	if (hourAsInteger < moment().format("HH")) {
+		$( this ).parent().addClass('past');
+		$( this ).next().removeClass('editable');
+	} else if (hourAsInteger > moment().format("HH")) {
+		$( this ).parent().addClass('future');	
+	} else {
+		$( this ).parent().addClass('present');	
+	}
+});
+
+
+// $('.hour').each(function(index, value) {
+// 	// $('<td>').addClass('p-2');
+// 	console.log( $( this ).parent() );
+
+
+
+// 	$( this ).parent().addClass('past');
+// });
+
+// if (theHourNow > hourColumnArrayAs24Hr){
+// 	// $(this).css("background-color", "pink");
+// 	var myEl = $('.hour');
+// 	$(parent).attr("class","past");
 // }
 
+// var projectNameTdEl = $('<td>').addClass('p-2');
 
-// $('div').each(function(index, value) {
-//     console.log(`div${index}: ${this.id}`);
-//   });
-
-// $('.hour').each(function(i, obj) {
-$('.hour').each(function(index, value) {
-    console.log(index);
-    console.log($(value).text());
-
-    $(this).siblings(".editable").eq(0).removeClass("past present future");
-
-    if (timeHourNow > parseInt($(value).text())) {
-        // $(this).css("background-color", "#ff6961");
-        // $(this).siblings(".bar").eq(0).text()
-        // $(this).siblings(".editable").eq(0).css("background-color", "#ff6961");
-        $(this).siblings(".editable").eq(0).addClass("past");
-    }
-    if (timeHourNow = parseInt($(value).text())) {
-        $(this).siblings(".editable").eq(0).addClass("present");
-    }
-
-    if (timeHourNow < parseInt($(value).text())) {
-        $(this).siblings(".editable").eq(0).addClass("future");
-    }
-
-});
 
 
 // if ($('td').hasClass('hour')) {
