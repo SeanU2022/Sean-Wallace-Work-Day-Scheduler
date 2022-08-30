@@ -102,6 +102,21 @@ var objDate = new Date();
 //     }
 
 
+// 
+
+// $('html').click(function() {
+
+
+//     $("#businessmenu").hide();
+//     $("#business").css("background-color", "#323232");
+
+
+//     $("#business").css({
+//         "background": "#000"
+//     });
+
+// });
+
 // https://mindmup.github.io/editable-table
 // /*global $, window*/
 $.fn.editableTableWidget = function (options) {
@@ -260,19 +275,3 @@ $("#business").click(function(event){
     $(this).css("background-color", "#000");
     event.stopPropagation();
 });
-
-
-// 
-
-// $('html').click(function() {
-
-
-//     $("#businessmenu").hide();
-//     $("#business").css("background-color", "#323232");
-
-
-//     $("#business").css({
-//         "background": "#000"
-//     });
-
-// });
