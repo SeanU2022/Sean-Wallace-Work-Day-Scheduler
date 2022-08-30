@@ -49,6 +49,8 @@ $('.hour').each(function(index, value) {
 });
 
 
+//  code to throw
+
 // $('.hour').each(function(index, value) {
 // 	// $('<td>').addClass('p-2');
 // 	console.log( $( this ).parent() );
