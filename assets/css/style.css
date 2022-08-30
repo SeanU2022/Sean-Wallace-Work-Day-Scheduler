@@ -19,10 +19,15 @@ textarea {
   color: black;
   border-radius: 0;
   border-bottom: 10px solid black;
+  padding-bottom: 0;
 }
 
 .description {
   white-space: pre-wrap;
+}
+
+thead {
+  cursor: default;
 }
 
 .time-block {
@@ -36,11 +41,12 @@ textarea {
   border-top: 1px solid white;
 }
 
+
 .hour {
   background-color: #ffffff;
-  /* color: #000000; */
-  color: pink;
+  color: #000000;
   border-top: 1px dashed #000000;
+  cursor: default;
 }
 
 .past {

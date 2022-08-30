@@ -1,42 +1,50 @@
-var todaysDate = moment().format("dddd, MMMM Do");
-$("#currentDay").text(todaysDate);
+// DOM current date and time
+$("#currentDay").text(moment().format("dddd, MMMM Do"));
+$("#currentTime").text(moment().format("h:mm A"));
+var updateTime = function () {
+	$("#currentTime").text(moment().format("h:mm A"));
+};
 
-var time = moment().format("hh:mm:ss");
-var timeHourNow = moment().format("hh");
-$("#4a").text(time);
-$("#4b").text(timeHourNow);
+function init(){
+    // the code to be called when the dom has loaded
+}
 
+$(document).ready(function(){
+    setInterval(updateTime, 1000);
+});
 
-// using AM/PM
-var theHourNow = moment().format("hh");
-console.log(theHourNow);
+$(document).onbeforeunload = unLoad; 
+function unLoad() {
+	clearInterval(updateTime);	
+	return null;
+}
 
-
-// this is outside of a function so that is exexutes on page load
+// THE DAILY SCHEDULE
+// timeblock format exexutes on page load
 var hourColumnText;
 var hourAsInteger = 0;
 var hourColumnMiddayTrigger = false;
-var hourColumnArrayAs24Hr = [];
 
-// populate hourColumnArrayAs24Hr from the .hour column converting to 24HR format
+// colour/color code #daily-schedule rows to .past, .present, .future based on the current hour
+// we assume the times go from AM to PM with 12 PM included
 $('.hour').each(function(index, value) {
 
+	// make displayed time an integer
 	hourColumnText = $(value).text();
-	hourAsInteger = parseInt(hourColumnText.substring(0, 2));	// assumption: 1 PM not 1PM
+	hourAsInteger = parseInt(hourColumnText.substring(0, 2));	// assumption: 1 PM not 1<space>PM
 
 	// if we have passed 12pm add 12 to the number
 	if (hourColumnMiddayTrigger) {
 		hourAsInteger = hourAsInteger + 12;
 	}
 
-	// in scope="col": only set flag to true after we have passed 12
+	// in index.html scope="col": only set flag to true after we have passed 12
 	// assumption: there is only one occcurance of 12 in the scope="col"
 	if (hourAsInteger === 12) {
 		hourColumnMiddayTrigger = true;
 	}
 
-	// ARRAY TO TEST THE LOGIC:
-	// hourColumnArrayAs24Hr.push(hourAsInteger);
+	// no need to clean up any previous format settings as this is on page load
 
 	if (hourAsInteger < moment().format("HH")) {
 		$( this ).parent().addClass('past');
@@ -48,78 +56,8 @@ $('.hour').each(function(index, value) {
 	}
 });
 
-
-//  code to throw
-
-// $('.hour').each(function(index, value) {
-// 	// $('<td>').addClass('p-2');
-// 	console.log( $( this ).parent() );
-
-
-
-// 	$( this ).parent().addClass('past');
-// });
-
-// if (theHourNow > hourColumnArrayAs24Hr){
-// 	// $(this).css("background-color", "pink");
-// 	var myEl = $('.hour');
-// 	$(parent).attr("class","past");
-// }
-
-// var projectNameTdEl = $('<td>').addClass('p-2');
-
-
-
-// if ($('td').hasClass('hour')) {
-//     // alert('hello');
-//     console.log( $( "td" )[ 0 ]);
-//     // var value = $( this ).val();
-//     // var value = $('td').hasClass('hour').val();
-//     var inputString = $('td')[0].val();
-//     var value = ($('td')[0]).text;
-//     alert(inputString);
-//     // alert(this.val());
-//     // $( "p" ).text( value );
-
-//     if (timeHourNow > value) {
-//         // $(this).css("background-color", "red");
-//         $(this).text = 'hello';
-//     } else {
-        
-//     }
-    
-// }
-
-
-var objDate = new Date();
-//     var hours = objDate.getHours();
-//     if(hours >= 9 && hours <= 17){
-//         $(".hour").addClass("present");
-//     }
-//     elseif(hours < 9){
-//         $(".hour").addClass("past");
-//     }
-//     else{
-//         $(".hour").addClass("future");
-//     }
-
-
-// 
-
-// $('html').click(function() {
-
-
-//     $("#businessmenu").hide();
-//     $("#business").css("background-color", "#323232");
-
-
-//     $("#business").css({
-//         "background": "#000"
-//     });
-
-// });
-
-// https://mindmup.github.io/editable-table
+// Enable the edit Activity/Task in a timeblock
+// Sean Wallace 2022: from https://mindmup.github.io/editable-table
 // /*global $, window*/
 $.fn.editableTableWidget = function (options) {
 	'use strict';
@@ -136,9 +74,7 @@ $.fn.editableTableWidget = function (options) {
 			active,
 			showEditor = function (select) {
 				active = element.find('td:focus');
-
-                // only one column class can be edited
-                // Sean Wallace 2022
+// Sean Wallace 2022: only one column class can be edited
                 if (!active.hasClass('editable')) {
                     return;
                 }
@@ -258,22 +194,108 @@ $.fn.editableTableWidget.defaultOptions = {
 	editor: $('<input>')
 };
 
-$('table td').on('change', function(evt, newValue) {
-    alert(newValue);
-	// do something with the new cell value 
-	console.log($('td').hasClass('col-1'));
-    if ($('td').hasClass('col-1')) { 
-        alert('cannot edit me!');
-		return false; // reject change
-	}
-});
 
-// $("#daily-schedule").SetEditable();
 $('#daily-schedule').editableTableWidget();
 
-$("#business").click(function(event){
-    jQuery.fx.off = true;
-    $("#businessmenu").toggle("");
-    $(this).css("background-color", "#000");
-    event.stopPropagation();
-});
+
+function retrieveSchedule() {
+    // // retrieve saved scores into array or create empty array if none saved yet
+    // var quizScores = JSON.parse(window.localStorage.getItem('quizScores')) || [];
+
+    // // sort quizScores by the score attribute in reverse order
+    // quizScores.sort(function (a, b) {
+    //     return b.score - a.score
+    // });
+
+    // // build ordered list of scores and show
+    // var olEl = document.getElementById("quiz-scores");
+
+    // // make sure this element is clear of any previous lists but do not destroy it
+    // olEl.innerHTML = '';
+
+    // for (let index = 0; index < quizScores.length; index++) {
+    //     var liEl = document.createElement('li');
+    //     liEl.textContent = quizScores[index].initials + '- ' + quizScores[index].score;
+    //     olEl.appendChild(liEl);
+    // }
+}
+
+function saveSchedule(userInitials, userScore) {
+    // // scope local over global
+    // if (userInitials==='') {
+    //     console.log('saveScore error');
+    //     return;
+    // }
+    
+    // // retrieve saved scores into array or create empty array if none saved yet
+    // var quizScores = JSON.parse(window.localStorage.getItem('quizScores')) || [];
+
+    // // params go into local object
+    // var personsScore = {
+    //     initials: userInitials,
+    //     score: userScore
+    // };
+
+    // // a more advanced technique?  TODO: research this
+    // // let results = [{country: 'France'},{country: 'Brazil'},{country: 'Dubai'},{country: 'Ireland'}];
+    // // let result = {country: 'Brazil'};
+    // // countryExist = results.some(obj => obj.country === result.country);
+    // // if (!countryExist) {
+    // // results.push(result);
+    // // addToLocalStorage(results);
+    // // }
+
+    // // if user has a previous score already stored save the highest of previous or current score
+    // var doPush = true;
+    // var index = 0;
+    // while (index < quizScores.length) {
+    //     // find the previous record and update it
+    //     if (quizScores[index].initials === personsScore.initials) {
+            
+    //         // only record the highest score for this user
+    //         if (quizScores[index].score < personsScore.score) {
+    //             quizScores[index].score = personsScore.score;
+    //         } else {
+    //             // keep the old score if it is >= current score
+    //         }            
+    //         doPush = false;                 // do not create new record
+    //         index = quizScores.length;      // finish the while loop early
+    //     }
+    //     else {
+    //         // keep searching until all records have been traversed
+    //         index++;
+    //     }
+    // }
+
+    // // if previous loop did not find a previous score then add a new record
+    // if (doPush) {quizScores.push(personsScore)};
+
+    // // put updated data back into the local store
+    // // localStorage.quizScores.initials = personsScore.initials // from userInitials
+    // // localStorage.quizScores.score = personsScore.score // from userScore
+    // window.localStorage.setItem('quizScores', JSON.stringify(quizScores));
+
+    // // jump to the scores page
+    // window.location.href = "quizscores.html"
+};
+
+// start
+// startBtn.addEventListener('click', function(event) {
+//     event.preventDefault();
+//     event.stopPropagation();
+//     startQuiz();
+//     doQuiz(currentKnowledgeTest);
+// });
+
+// submit after quiz
+// allDoneSubmitBtn.addEventListener('click', function(event) {
+//     event.preventDefault();
+//     event.stopPropagation();
+
+//     var userInitials = document.querySelector('#initials').value.trim();
+//     if (userInitials === '' || userInitials.length > 5) {
+//         alert('Please enter your initials [up to 5 letters]');
+//     } else {
+//         saveScore(userInitials, finalScore);
+//     }
+// });
