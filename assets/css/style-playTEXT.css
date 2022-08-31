@@ -7,13 +7,15 @@ body {
 thead {
   cursor: default;
 }
+
 textarea {
   background: transparent;
   border: none;
   resize: none;
   color: #000000;
   border-left: 1px solid black;
-  padding: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .jumbotron {
@@ -25,20 +27,20 @@ textarea {
   padding-bottom: 0;
 }
 
-.description {
+/* .description {
   white-space: pre-wrap;
-}
+} */
 
-.time-block {
+/* .time-block {
   text-align: center;
   border-radius: 15px;
-}
+} */
 
-.row {
+/* .row {
   white-space: pre-wrap;
   height: 80px;
   border-top: 1px solid white;
-}
+} */
 
 .hour {
   background-color: #ffffff;
