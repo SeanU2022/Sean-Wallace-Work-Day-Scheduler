@@ -38,26 +38,37 @@
         <!-- Bootstrap table and table-dark classes -->
         <table class="table" id="daily-schedule">
             <thead>
-                <tr scope="row"><th scope="col" class="col-1 font-weight-bold">Hour</th><th scope="col" class="col-10">Activity/Task</th><th scope="col" class="col-1">Save</th></tr>
+                <tr scope="row"><th scope="col" class="col-1 lead">Hour</th><th scope="col" class="col-10 lead">Event</th><th scope="col" class="col-1 lead">Save</th></tr>
             </thead>
-            <tbody><tr scope="row" class=""><td scope="col" class="hour col-1">6 AM</td><td scope="col" class="editable col-10">Kolkata</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">7 AM</td><td scope="col" class="editable col-10">Kolkata</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">8 AM</td><td scope="col" class="editable col-10">Kolkata</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">9 AM</td><td scope="col" class="editable col-10">Ajay</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">10 AM</td><td scope="col" class="editable col-10">Rahul</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">11 AM</td><td scope="col" class="editable col-10">Rahul</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">12 PM</td><td scope="col" class="editable col-10">Ajay</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">1 PM</td><td scope="col" class="editable col-10">Rahul</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">2 PM</td><td scope="col" class="editable col-10">Kolkata</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">3 PM</td><td scope="col" class="editable col-10">Ajay</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">4 PM</td><td scope="col" class="editable col-10">Rahul</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">5 PM</td><td scope="col" class="editable col-10">Kolkata</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">6 PM</td><td scope="col" class="editable col-10">Ajay</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">7 PM</td><td scope="col" class="editable col-10">Ajay</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">8 PM</td><td scope="col" class="editable col-10">Ajay</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">9 PM</td><td scope="col" class="editable col-10">9zeez</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">10 PM</td><td scope="col" class="editable col-10">ten ten ten</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
-              <tr scope="row" class=""><td scope="col" class="hour col-1">11 PM</td><td scope="col" class="editable col-10">MID NIGHT CLOSE</td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+            <tbody id="daily-schedule-body">
+              <tr scope="row" class="">
+                <td scope="col" class="hour col-1">6 AM</td>
+                <td scope="col" class="event-activity editable col-10"></td>
+                <td scope="col" class="col-1">
+                  <button type="button" class="saveBtn btn-primary">
+                  <i class="far fa-save"></i>
+                  </button>
+                </td>
+              </tr>
+              <!-- <tr scope="row" class=""><td scope="col" class="hour col-1">7 AM</td><td scope="col" id="event7" class="editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">8 AM</td><td scope="col" id="event8" class="editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr> -->
+              <tr scope="row" class=""><td scope="col" class="hour col-1">7 AM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">8 AM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">9 AM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">10 AM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">11 AM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">12 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">1 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">2 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">3 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">4 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">5 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">6 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">7 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">8 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">9 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">10 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
+              <tr scope="row" class=""><td scope="col" class="hour col-1">11 PM</td><td scope="col" class="event-activity editable col-10"></td><td scope="col" class="col-1"><button type="button" class="saveBtn btn-primary"><i class="far fa-save"></i></button></td></tr>
             </tbody>
         </table>
       </div>
@@ -97,6 +108,7 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <!-- <script src="https://github.com/mindmup/editable-table.git"></script> -->
 
-    <script src="./assets/js/script.js"></script>    
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/schedule_storage.js"></script>
   </body>
 </html>
